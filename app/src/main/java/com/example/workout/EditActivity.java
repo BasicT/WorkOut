@@ -3,13 +3,15 @@ package com.example.workout;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.kongzue.dialog.v3.MessageDialog;
+
 import org.litepal.LitePal;
 
-import java.util.List;
 
 public class EditActivity extends AppCompatActivity {
 
@@ -31,15 +33,20 @@ public class EditActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 Text text = new Text();
-                text.setTitle(title.getText().toString());
-                text.setContent(content.getText().toString());
-                if (intent.hasExtra("EditTextId")){
-                    text.update(intent.getIntExtra("EditTextId",1));
+                if (TextUtils.isEmpty(title.getText()) | TextUtils.isEmpty(content.getText())){
+                    MessageDialog.show(EditActivity.this,"提示","请输入内容","确定");
                 }else {
-                    text.save();
+                    text.setTitle(title.getText().toString());
+                    text.setContent(content.getText().toString());
+                    if (intent.hasExtra("EditTextId")){
+                        text.update(intent.getIntExtra("EditTextId",1));
+                    }else {
+                        text.save();
+                    }
+                    Intent intent = new Intent(EditActivity.this,MainActivity.class);
+                    startActivity(intent);
                 }
-                Intent intent = new Intent(EditActivity.this,MainActivity.class);
-                startActivity(intent);
+
             }
         });
     }
