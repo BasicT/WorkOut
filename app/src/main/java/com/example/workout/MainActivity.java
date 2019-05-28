@@ -2,12 +2,16 @@ package com.example.workout;
 
 
 import android.content.Intent;
+import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
@@ -25,18 +29,19 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         List<Text> texts = LitePal.select("title").find(Text.class);
-        final List<Text> texts1 = LitePal.findAll(Text.class);
+       /*final List<Text> texts1 = LitePal.findAll(Text.class);
         int i = texts.size();
         String[] data = new String[i];
         for (Text text : texts){
             data[texts.size()-i] = text.getTitle();
             i = i-1;
-        }
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(MainActivity.this,
-                android.R.layout.simple_list_item_1,data);
-        final ListView listView = findViewById(R.id.list_item);
-        listView.setAdapter(adapter);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        }*/
+        final RecyclerView recyclerView = findViewById(R.id.recycler_view);
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        TextAdapter adapter = new TextAdapter(texts);
+        recyclerView.setAdapter(adapter);
+        /*listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Text text = texts1.get(position);
@@ -50,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
             public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
                 Text text = texts1.get(position);
                 LitePal.deleteAll(Text.class,"title = ?",text.getTitle());
-                adapter.notifyDataSetChanged();
                 return true;
             }
-        });
+        });*/
         FloatingActionButton fab = findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override

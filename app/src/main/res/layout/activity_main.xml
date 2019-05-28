@@ -18,13 +18,14 @@
             app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
             app:layout_scrollFlags="scroll|enterAlways">
         </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
 
-        <ListView
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/list_item"
+            android:id="@+id/recycler_view"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        </ListView>
+        </android.support.v7.widget.RecyclerView>
 
         <android.support.design.widget.FloatingActionButton
             android:layout_width="wrap_content"
@@ -33,6 +34,6 @@
             android:layout_gravity="bottom|end"
             android:layout_margin="16dp"
             android:src="@drawable/ic_done"/>
-    </android.support.design.widget.AppBarLayout>
+
 
 </android.support.design.widget.CoordinatorLayout>
